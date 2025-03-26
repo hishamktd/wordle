@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 
 export default async function LeaderboardPage() {
-  const stats = await db.query.leaderboard.findMany({
+  const stats: { id: string; user: { name: string } | null; totalGames: number; gamesWon: number; averageAttempts: number }[] = await db.query.leaderboard.findMany({
     orderBy: (leaderboard, { desc }) => [
       desc(leaderboard.gamesWon),
       desc(leaderboard.averageAttempts),
@@ -42,7 +42,7 @@ export default async function LeaderboardPage() {
               {stats.map((stat, index) => (
                 <TableRow key={stat.id}>
                   <TableCell className="text-white">{index + 1}</TableCell>
-                  <TableCell className="text-white">{stat.user.name}</TableCell>
+                  <TableCell className="text-white">{stat.user?.name}</TableCell>
                   <TableCell className="text-white text-right">{stat.totalGames}</TableCell>
                   <TableCell className="text-white text-right">{stat.gamesWon}</TableCell>
                   <TableCell className="text-white text-right">
