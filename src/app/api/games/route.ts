@@ -1,13 +1,23 @@
-import { getServerSession } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { games, leaderboard } from "@/lib/db/schema";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { eq } from "drizzle-orm";
 
+interface ExtendedSession extends Session {
+  user: {
+    id?: string;
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+  };
+}
+
+
 export async function POST(req: Request) {
   try {
-    const session = await getServerSession(authOptions);
+    const session :ExtendedSession | null= await getServerSession(authOptions);
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
