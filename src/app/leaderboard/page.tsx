@@ -10,16 +10,16 @@ import {
 } from "@/components/ui/table";
 
 export default async function LeaderboardPage() {
-  const stats: { id: string; user: { name: string } | null; totalGames: number; gamesWon: number; averageAttempts: number }[] = await db.query.leaderboard.findMany({
-    orderBy: (leaderboard, { desc }) => [
-      desc(leaderboard.gamesWon),
-      desc(leaderboard.averageAttempts),
-    ],
-    limit: 10,
-    with: {
-      user: true,
-    },
-  });
+  // const stats: { id: string; totalGames: number; gamesWon: number; averageAttempts: number }[] = await db.query.leaderboard.findMany({
+  //   orderBy: (leaderboard, { desc }) => [
+  //     desc(leaderboard.gamesWon),
+  //     desc(leaderboard.averageAttempts),
+  //   ],
+  //   limit: 10,
+  //   with: {
+  //     user: true,
+  //   },
+  // });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white p-8">
@@ -39,10 +39,10 @@ export default async function LeaderboardPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {stats.map((stat, index) => (
+              {/* {stats.map((stat, index) => (
                 <TableRow key={stat.id}>
                   <TableCell className="text-white">{index + 1}</TableCell>
-                  <TableCell className="text-white">{stat.user?.name}</TableCell>
+                  <TableCell className="text-white">{'stat.user?.name'}</TableCell>
                   <TableCell className="text-white text-right">{stat.totalGames}</TableCell>
                   <TableCell className="text-white text-right">{stat.gamesWon}</TableCell>
                   <TableCell className="text-white text-right">
@@ -50,7 +50,7 @@ export default async function LeaderboardPage() {
                   </TableCell>
                   <TableCell className="text-white text-right">{stat.averageAttempts}</TableCell>
                 </TableRow>
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         </div>

@@ -11,7 +11,7 @@ export const users = sqliteTable('users', {
 
 export const games = sqliteTable('games', {
   id: text('id').primaryKey(),
-  userId: text('user_id').references(() => users.id),
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: "cascade" }),
   word: text('word').notNull(),
   attempts: integer('attempts').notNull(),
   completed: integer('completed', { mode: 'boolean' }).notNull().default(false),
@@ -21,7 +21,7 @@ export const games = sqliteTable('games', {
 
 export const leaderboard = sqliteTable('leaderboard', {
   id: text('id').primaryKey(),
-  userId: text('user_id').references(() => users.id),
+  userId: text('user_id').notNull().references(() => users.id, { onDelete: "cascade" }),
   totalGames: integer('total_games').notNull().default(0),
   gamesWon: integer('games_won').notNull().default(0),
   averageAttempts: integer('average_attempts').notNull().default(0),
